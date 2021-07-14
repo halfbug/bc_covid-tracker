@@ -1,54 +1,79 @@
-import React from 'react';
-import { useTheme } from '@material-ui/core/styles';
-import { LineChart, Line, XAxis, YAxis, Label, ResponsiveContainer } from 'recharts';
-import Title from './Title';
+import React, { useState, useEffect } from 'react';
+import { Line, Bar } from 'react-chartjs-2';
 
-// Generate Sales Data
-function createData(time, amount) {
-  return { time, amount };
-}
+import { fetchDailyData } from '../api';
 
-const data = [
-  createData('00:00', 0),
-  createData('03:00', 300),
-  createData('06:00', 600),
-  createData('09:00', 800),
-  createData('12:00', 1500),
-  createData('15:00', 2000),
-  createData('18:00', 2400),
-  createData('21:00', 2400),
-  createData('24:00', undefined),
-];
 
-export default function Chart() {
-  const theme = useTheme();
+const Chart = ({ data: { confirmed, recovered, deaths }, country }) => {
+  const [dailyData, setDailyData] = useState({});
 
-  return (
-    <React.Fragment>
-      <Title>Today</Title>
-      <ResponsiveContainer>
-        <LineChart
-          data={data}
-          margin={{
-            top: 16,
-            right: 16,
-            bottom: 0,
-            left: 24,
-          }}
-        >
-          <XAxis dataKey="time" stroke={theme.palette.text.secondary} />
-          <YAxis stroke={theme.palette.text.secondary}>
-            <Label
-              angle={270}
-              position="left"
-              style={{ textAnchor: 'middle', fill: theme.palette.text.primary }}
-            >
-              Sales ($)
-            </Label>
-          </YAxis>
-          <Line type="monotone" dataKey="amount" stroke={theme.palette.primary.main} dot={false} />
-        </LineChart>
-      </ResponsiveContainer>
-    </React.Fragment>
+  useEffect(() => {
+    const fetchMyAPI = async () => {
+      const initialDailyData = await fetchDailyData();
+
+      setDailyData(initialDailyData);
+    };
+
+    fetchMyAPI();
+  }, []);
+
+  const barChart = (
+    confirmed ? (
+      <Bar
+        data={{
+          labels: ['Infected', 'Recovered', 'Deaths'],
+          datasets: [
+            {
+              label: 'People',
+              backgroundColor: ['rgba(0, 0, 255, 0.5)', 'rgba(0, 255, 0, 0.5)', 'rgba(255, 0, 0, 0.5)'],
+              data: [confirmed.value, recovered.value, deaths.value],
+            },
+          ],
+        }}
+        options={{
+          legend: { display: false },
+          title: { display: true, text: `Current state in ${country}` },
+        }}
+      />
+    ) : null
   );
-}
+
+  const lineChart = (
+    dailyData[0] ? (
+      <Line
+        data={{
+          labels: dailyData.map(({ date }) => new Date(date).toLocaleDateString()),
+          datasets: [{
+            data: dailyData.map((data) => data.confirmed),
+            label: 'Infected',
+            borderColor: '#3333ff',
+            fill: true,
+          }, {
+            data: dailyData.map((data) => data.deaths),
+            label: 'Deaths',
+            borderColor: 'red',
+            backgroundColor: 'rgba(255, 0, 0, 0.5)',
+            fill: true,
+          },  {
+            data: dailyData.map((data) => data.recovered),
+            label: 'Recovered',
+            borderColor: 'green',
+            backgroundColor: 'rgba(0, 255, 0, 0.5)',
+            fill: true,
+          },
+          ],
+        }}
+      />
+    ) : null
+  );
+  console.log("🚀 ~ file: Chart.js ~ line 76 ~ Chart ~ country", country)
+  return (
+    <div >
+      { barChart }
+      {lineChart}
+    </div>
+  );
+};
+    
+
+export default Chart;

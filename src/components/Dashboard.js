@@ -15,6 +15,7 @@ import Link from '@material-ui/core/Link';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import Chart from './Chart';
 import TCard from './TCard';
+import Countries from './Countries';
 import { fetchData } from '../api/';
 // import Orders from './Orders';
 
@@ -120,15 +121,9 @@ export default function Dashboard() {
   const classes = useStyles();
   const [state, setstate] = useState({
     data: {},
-    country: '',
+    country: null,
   })
-  const [open, setOpen] = React.useState(true);
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
+  
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
   useEffect(() => {
@@ -137,18 +132,21 @@ export default function Dashboard() {
         setstate({...state, data})
       })();
       
-  }, [])
-//   handleCountryChange = async (country) => {
-//     const data = await fetchData(country);
+  }, []);
 
-//     // this.setState({ data, country: country });
-//   }
+  const handleCountryChange = async (country) => {
+    const data = await fetchData(country);
+
+    setstate({ data, country: country });
+  }
  console.log(state);
 
  if(!state.data.confirmed){
  return 'Loading...';
 }
  const { confirmed, recovered, deaths, lastUpdate } = state.data;
+ const { data, country } = state;
+ console.log("🚀 ~ file: Dashboard.js ~ line 149 ~ Dashboard ~ country", country)
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -193,8 +191,9 @@ export default function Dashboard() {
             </Grid>
             {/* Chart */}
             <Grid item xs={12} md={8} lg={9}>
-              <Paper className={classes.chartHeight}>
-                <Chart />
+            <Countries handleCountryChange={handleCountryChange} />
+              <Paper  >
+              <Chart data={data} country={country} /> 
               </Paper>
             </Grid>
             

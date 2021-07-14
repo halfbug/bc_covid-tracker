@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -15,6 +15,7 @@ import Link from '@material-ui/core/Link';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import Chart from './Chart';
 import TCard from './TCard';
+import { fetchData } from '../api/';
 // import Orders from './Orders';
 
 function Copyright() {
@@ -117,6 +118,10 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Dashboard() {
   const classes = useStyles();
+  const [state, setstate] = useState({
+    data: {},
+    country: '',
+  })
   const [open, setOpen] = React.useState(true);
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -126,6 +131,24 @@ export default function Dashboard() {
   };
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
+  useEffect(() => {
+    (async () => {
+        const data = await fetchData();
+        setstate({...state, data})
+      })();
+      
+  }, [])
+//   handleCountryChange = async (country) => {
+//     const data = await fetchData(country);
+
+//     // this.setState({ data, country: country });
+//   }
+ console.log(state);
+
+ if(!state.data.confirmed){
+ return 'Loading...';
+}
+ const { confirmed, recovered, deaths, lastUpdate } = state.data;
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -150,13 +173,22 @@ export default function Dashboard() {
               {/* Recent Deposits */}
             <Grid item xs={12} md={4} lg={3}>
               <Paper className={fixedHeightPaper}>
-                <TCard />
+                <TCard cardTitle="Infected"
+          value={confirmed.value}
+          lastUpdate={lastUpdate}
+          cardSubtitle="Number of active cases from COVID-19." />
               </Paper>
               <Paper className={fixedHeightPaper}>
-                <TCard />
+                <TCard cardTitle="Recovered"
+          value={recovered.value}
+          lastUpdate={lastUpdate}
+          cardSubtitle="Number of recoveries from COVID-19." />
               </Paper>
               <Paper className={fixedHeightPaper}>
-                <TCard />
+                <TCard cardTitle="Deaths"
+          value={deaths.value}
+          lastUpdate={lastUpdate}
+          cardSubtitle="Number of deaths caused by COVID-19."/>
               </Paper>
             </Grid>
             {/* Chart */}

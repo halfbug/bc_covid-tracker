@@ -4085,6 +4085,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"axios@npm:^0.21.1":
+  version: 0.21.1
+  resolution: "axios@npm:0.21.1"
+  dependencies:
+    follow-redirects: ^1.10.0
+  checksum: 864fb7b5d077d236737f10adca53bf451a93f35a15271f56fba8da07265a02d26b7d881b935a6697dc6adb0549ea3e56d2eecb403edaa3bb78f6479901c10f69
+  languageName: node
+  linkType: hard
+
 "axobject-query@npm:^2.2.0":
   version: 2.2.0
   resolution: "axobject-query@npm:2.2.0"
@@ -4386,10 +4395,13 @@ __metadata:
     "@testing-library/jest-dom": ^5.11.4
     "@testing-library/react": ^11.1.0
     "@testing-library/user-event": ^12.1.10
+    axios: ^0.21.1
     clsx: ^1.1.1
     eslint-config-react-app: ^6.0.0
     prop-types: ^15.7.2
     react: ^17.0.2
+    react-chartjs-2: ^3.0.3
+    react-countup: ^4.4.0
     react-dom: ^17.0.2
     react-scripts: ^4.0.3
     recharts: ^2.0.10
@@ -5488,6 +5500,13 @@ __metadata:
     path-type: ^4.0.0
     yaml: ^1.10.0
   checksum: 151fcb91773c0ae826fc801eab86f8f818605dbf63c8e5515adf0ff0fec5ede8e614f387f93c088d65527a2ea9021f0cd8c6b6e5c7fef2b77480b5e2c33700dc
+  languageName: node
+  linkType: hard
+
+"countup.js@npm:^1.9.3":
+  version: 1.9.3
+  resolution: "countup.js@npm:1.9.3"
+  checksum: cf83dabee7caeabc373c716265d3c3e3a4d296a2dda1a0aa1a00b8fc0cbbe2d607e4f8c97b4ce876726b0f147d47a6120c66eec07910eb1d5a3298b168a4ea0d
   languageName: node
   linkType: hard
 
@@ -7656,6 +7675,16 @@ __metadata:
   dependencies:
     debug: ^3.0.0
   checksum: e8d884d0da932dcf64f8f45769f22cdb38a4ad7a889017e1221f4d306ed2dbfdc6c9ce2261dee82727fe5e0272a7b17761068fcff5709d34b453f0400414ea94
+  languageName: node
+  linkType: hard
+
+"follow-redirects@npm:^1.10.0":
+  version: 1.14.1
+  resolution: "follow-redirects@npm:1.14.1"
+  peerDependenciesMeta:
+    debug:
+      optional: true
+  checksum: 761a18699688b19d66b3e9199ecaf9cd39ede953f3529299c7fca4190b27b855c17c491170977844d5db5e169ffc35ebae999bb0833e9c9c61988d19c20ae7ab
   languageName: node
   linkType: hard
 
@@ -10456,7 +10485,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"loose-envify@npm:^1.1.0, loose-envify@npm:^1.4.0":
+"loose-envify@npm:^1.0.0, loose-envify@npm:^1.1.0, loose-envify@npm:^1.4.0":
   version: 1.4.0
   resolution: "loose-envify@npm:1.4.0"
   dependencies:
@@ -13385,6 +13414,31 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
+"react-chartjs-2@npm:^3.0.3":
+  version: 3.0.3
+  resolution: "react-chartjs-2@npm:3.0.3"
+  dependencies:
+    lodash: ^4.17.19
+  peerDependencies:
+    chart.js: ^3.1.0
+    react: ^16.8.0 || ^17.0.0
+  checksum: 5afc9d450041221b6334cfa0b895cf11b6c9042786bfdcd86564f10cbd54f05e6751da72b5de1828d5081d78db69f5b7aff7138d41c9953b2aa535dc38f89c67
+  languageName: node
+  linkType: hard
+
+"react-countup@npm:^4.4.0":
+  version: 4.4.0
+  resolution: "react-countup@npm:4.4.0"
+  dependencies:
+    countup.js: ^1.9.3
+    prop-types: ^15.7.2
+    warning: ^4.0.3
+  peerDependencies:
+    react: ">= 16.3.0"
+  checksum: 714791175bf00fa4920e879cbef3599affb7dd9916cb63322851ee272cf167b6ef7ec82ccb95fb4dbfd62509bd59211a0022652820d32031bb6c7d4db696b71f
+  languageName: node
+  linkType: hard
+
 "react-dev-utils@npm:^11.0.3":
   version: 11.0.4
   resolution: "react-dev-utils@npm:11.0.4"
@@ -16296,6 +16350,15 @@ resolve@^2.0.0-next.3:
   dependencies:
     makeerror: 1.0.x
   checksum: c014f264c473fc4464ba8f59eb9f7ffa1c0cf2c83b65353de28a6012d8dd29e974bf2b0fbd5c71231f56762a3ea0d970b635f7d6f6d670ff83f426741ce6a4da
+  languageName: node
+  linkType: hard
+
+"warning@npm:^4.0.3":
+  version: 4.0.3
+  resolution: "warning@npm:4.0.3"
+  dependencies:
+    loose-envify: ^1.0.0
+  checksum: 20ef5d29ff9c20af3060e504914a00d5a90ce346e75e6691efbedb540481cdc82070c966d75195f812de64bb0bd7f1b02315fcb52469db151c0f15e29002781c
   languageName: node
   linkType: hard
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from '@material-ui/core/Link';
+import CountUp from 'react-countup';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Title from './Title';
@@ -14,21 +15,22 @@ const useStyles = makeStyles({
   },
 });
 
-export default function TCards() {
+export default function TCards({cardTitle, value, lastUpdate, cardSubtitle }) {
   const classes = useStyles();
   return (
     <React.Fragment>
-      <Title>Recent Deposits</Title>
-      <Typography component="p" variant="h4">
-        $3,024.00
+      <Title>{cardTitle}</Title>
+      <Typography variant="h5" component="h2">
+        <CountUp start={0} end={value} duration={2.75} separator="," />
       </Typography>
-      <Typography color="textSecondary" className={classes.depositContext}>
-        on 15 March, 2019
+      <Typography color="textSecondary">
+        {new Date(lastUpdate).toDateString()}
+      </Typography>
+      <Typography variant="body2" component="p">
+        {cardSubtitle}
       </Typography>
       <div>
-        <Link color="primary" href="#" onClick={preventDefault}>
-          View balance
-        </Link>
+       
       </div>
     </React.Fragment>
   );
